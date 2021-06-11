@@ -1,6 +1,8 @@
 package Pieces;
 
 import Board.*;
+import Board.Move.MajorMove;
+import Board.Move.AttackMove;
 import com.google.common.collect.ImmutableList;
 
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ public class Knight extends Piece {
     A method to calculate if the move for the Knight is occupied by a teammate or out of the board layout
      */
     @Override
-    public List<Move> calculateLegalMoves(Board board) {
+    public List<Move> calculateLegalMoves(final Board board) {
         int possibleDestinationCoordinate;
         List<Move> legalMoves = new ArrayList<>();
 
@@ -35,13 +37,15 @@ public class Knight extends Piece {
                     continue;
                 }
                 final Tile possibleDestinationTile = board.getTile(possibleDestinationCoordinate);
+                // Piece Move
                 if(!possibleDestinationTile.isTileOccupied()) {
-                    legalMoves.add(new Move());
+                    legalMoves.add(new MajorMove(board, this, possibleDestinationCoordinate));
                 } else {
                     final Piece pieceAtDestination = possibleDestinationTile.getPiece();
                     final Team pieceTeam = pieceAtDestination.getPieceTeam();
+                    // Piece move with capture
                     if(this.pieceTeam != pieceTeam) {
-                        legalMoves.add(new Move());
+                        legalMoves.add(new AttackMove(board, this, possibleDestinationCoordinate, pieceAtDestination));
                     }
                 }
             }
