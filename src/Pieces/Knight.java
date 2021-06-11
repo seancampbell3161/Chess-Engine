@@ -20,7 +20,7 @@ public class Knight extends Piece {
     }
 
     /*
-    A method to calculate if the move for the Knight is occupied by a teammate or out of the board layout
+    A method to calculate if the move for the Knight is occupied by a teammate, enemy, or outside the board
      */
     @Override
     public List<Move> calculateLegalMoves(final Board board) {
@@ -79,7 +79,7 @@ public class Knight extends Piece {
     Method that checks if Knight is in column 8 for broken edge case
      */
     private static boolean isEighthColumnExclusion(final int currentPosition, final int candidateOffset) {
-        return BoardUtils.EIGTH_COLUMN[currentPosition] && (candidateOffset == -15 || candidateOffset == -6 ||
+        return BoardUtils.EIGHT_COLUMN[currentPosition] && (candidateOffset == -15 || candidateOffset == -6 ||
                 candidateOffset == 10 || candidateOffset == 17);
     }
 }
